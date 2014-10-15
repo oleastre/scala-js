@@ -19,22 +19,22 @@ trait ClasspathElementsTraverser extends JarTraverser
                                     with FileSystem {
 
   protected def traverseClasspathElements(cp: Seq[File]): String =
-    CacheUtils.joinVersions(cp.map(readEntriesInClasspathElement _): _*)
+    CacheUtils.joinVersions(cp.flatMap(readEntriesInClasspathElement _): _*)
 
   /** Adds the Scala.js classpath entries in a directory or jar.
    *  Returns the accumulated version
    */
-  private def readEntriesInClasspathElement(element: File): String = {
+  private def readEntriesInClasspathElement(element: File): Option[String] = {
     if (isDirectory(element))
-      traverseDir(element)
+      Some(traverseDir(element))
     else if (isJSFile(element)) {
       handleTopLvlJS(toJSFile(element))
-      getGlobalVersion(element)
+      Some(getGlobalVersion(element))
     } else if (isJARFile(element)) {
       // We assume it is a jar
-      traverseJar(element)
+      Some(traverseJar(element))
     } else
-      sys.error(s"$element (in classpath) is neither JS, JAR or directory")
+      None
   }
 
 }

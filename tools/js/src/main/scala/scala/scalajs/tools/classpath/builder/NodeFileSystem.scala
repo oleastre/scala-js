@@ -16,6 +16,9 @@ trait NodeFileSystem extends FileSystem {
   type File = String
 
   private def stats(f: String) = fs.statSync(f)
+  private def exists(f: String) = fs.existsSync(f)
+
+  val DummyVersion: String = "DUMMY_FILE"
 
   def isDirectory(f: String): Boolean =
     stats(f).isDirectory().asInstanceOf[Boolean]
@@ -31,6 +34,9 @@ trait NodeFileSystem extends FileSystem {
 
   def isJARFile(f: String): Boolean =
     isFile(f) && f.endsWith(".jar")
+
+  def exists(f: String): Boolean =
+    exists(f).asInstanceOf[Boolean]
 
   def getName(f: String): String =
     VirtualFile.nameFromPath(f)

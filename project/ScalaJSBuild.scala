@@ -37,6 +37,7 @@ object ScalaJSBuild extends Build {
   val shouldPartest = settingKey[Boolean](
     "Whether we should partest the current scala version (and fail if we can't)")
 
+  val extraVersion = "-os1"
   val commonSettings = Defaults.defaultSettings ++ Seq(
       organization := "org.scala-lang.modules.scalajs",
       version := scalaJSVersion,
@@ -243,6 +244,7 @@ object ScalaJSBuild extends Build {
       settings = defaultSettings ++ publishSettings ++ (
           commonToolsSettings
       ) ++ Seq(
+          version := scalaJSVersion + extraVersion,
           scalaVersion := "2.10.4",
 
           libraryDependencies ++= Seq(
@@ -314,6 +316,7 @@ object ScalaJSBuild extends Build {
       base = file("sbt-plugin"),
       settings = commonSettings ++ publishSettings ++ Seq(
           name := "Scala.js sbt plugin",
+          version := scalaJSVersion + extraVersion,
           sbtPlugin := true,
           scalaBinaryVersion :=
             CrossVersion.binaryScalaVersion(scalaVersion.value),

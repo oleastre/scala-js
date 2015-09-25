@@ -183,7 +183,7 @@
         ++$scala javalibExTestSuite/test &&
     sbtretry ++$scala testSuite/test:doc compiler/test reversi/fastOptJS reversi/fullOptJS &&
     sbtretry ++$scala compiler/compile:doc library/compile:doc javalibEx/compile:doc \
-        testInterface/compile:doc jasmineTestFramework/compile:doc stubs/compile:doc &&
+        testInterface/compile:doc jasmineTestFramework/compile:doc &&
     sbtretry ++$scala partest/fetchScalaSource &&
     sbtretry ++$scala library/mimaReportBinaryIssues testInterface/mimaReportBinaryIssues &&
     sh ci/checksizes.sh $scala &&
@@ -207,7 +207,7 @@
         jsEnvs/mimaReportBinaryIssues testAdapter/mimaReportBinaryIssues \
         stubs/mimaReportBinaryIssues cli/mimaReportBinaryIssues
     sbt ++$scala ir/compile:doc tools/compile:doc jsEnvs/compile:doc \
-        testAdapter/compile:doc
+        testAdapter/compile:doc stubs/compile:doc
   ]]></task>
 
   <task id="tools-cli-stubs-sbtplugin"><![CDATA[
@@ -229,7 +229,7 @@
         reversi/scalastyle testingExample/scalastyle \
         testingExample/test:scalastyle
     sbt ++$scala ir/compile:doc tools/compile:doc jsEnvs/compile:doc \
-        testAdapter/compile:doc sbtPlugin/compile:doc
+        testAdapter/compile:doc stubs/compile:doc sbtPlugin/compile:doc
   ]]></task>
 
   <task id="partestc"><![CDATA[

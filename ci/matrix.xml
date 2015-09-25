@@ -205,7 +205,7 @@
         stubs/package jsEnvs/test \
         ir/mimaReportBinaryIssues tools/mimaReportBinaryIssues \
         jsEnvs/mimaReportBinaryIssues testAdapter/mimaReportBinaryIssues \
-        stubs/mimaReportBinaryIssues cli/mimaReportBinaryIssues
+        stubs/mimaReportBinaryIssues cli/mimaReportBinaryIssues &&
     sbt ++$scala ir/compile:doc tools/compile:doc jsEnvs/compile:doc \
         testAdapter/compile:doc stubs/compile:doc
   ]]></task>
@@ -218,7 +218,7 @@
         ir/mimaReportBinaryIssues tools/mimaReportBinaryIssues \
         jsEnvs/mimaReportBinaryIssues testAdapter/mimaReportBinaryIssues \
         stubs/mimaReportBinaryIssues cli/mimaReportBinaryIssues \
-        sbtPlugin/mimaReportBinaryIssues
+        sbtPlugin/mimaReportBinaryIssues &&
     sbt ++$scala library/scalastyle javalanglib/scalastyle javalib/scalastyle \
         javalibEx/scalastyle ir/scalastyle compiler/scalastyle \
         compiler/test:scalastyle tools/scalastyle tools/test:scalastyle \
@@ -227,7 +227,7 @@
         jasmineTestFramework/scalastyle testSuite/test:scalastyle \
         javalibExTestSuite/test:scalastyle helloworld/scalastyle \
         reversi/scalastyle testingExample/scalastyle \
-        testingExample/test:scalastyle
+        testingExample/test:scalastyle &&
     sbt ++$scala ir/compile:doc tools/compile:doc jsEnvs/compile:doc \
         testAdapter/compile:doc stubs/compile:doc sbtPlugin/compile:doc
   ]]></task>

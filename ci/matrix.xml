@@ -15,7 +15,6 @@
 
   <task id="main"><![CDATA[
     setJavaVersion $java
-    sbtretry ++$scala package packageDoc &&
     sbtretry ++$scala helloworld/run \
         'set scalaJSStage in Global := FastOptStage' \
         ++$scala helloworld/run \
@@ -183,6 +182,8 @@
         'set scalaJSStage in Global := FullOptStage' \
         ++$scala javalibExTestSuite/test &&
     sbtretry ++$scala testSuite/test:doc compiler/test reversi/fastOptJS reversi/fullOptJS &&
+    sbtretry ++$scala compiler/compile:doc library/compile:doc javalibEx/compile:doc \
+        testInterface/compile:doc jasmineTestFramework/compile:doc stubs/compile:doc &&
     sbtretry ++$scala partest/fetchScalaSource &&
     sbtretry ++$scala library/mimaReportBinaryIssues testInterface/mimaReportBinaryIssues &&
     sh ci/checksizes.sh $scala &&
@@ -205,6 +206,8 @@
         ir/mimaReportBinaryIssues tools/mimaReportBinaryIssues \
         jsEnvs/mimaReportBinaryIssues testAdapter/mimaReportBinaryIssues \
         stubs/mimaReportBinaryIssues cli/mimaReportBinaryIssues
+    sbt ++$scala ir/compile:doc tools/compile:doc jsEnvs/compile:doc \
+        testAdapter/compile:doc
   ]]></task>
 
   <task id="tools-cli-stubs-sbtplugin"><![CDATA[
@@ -225,23 +228,13 @@
         javalibExTestSuite/test:scalastyle helloworld/scalastyle \
         reversi/scalastyle testingExample/scalastyle \
         testingExample/test:scalastyle
+    sbt ++$scala ir/compile:doc tools/compile:doc jsEnvs/compile:doc \
+        testAdapter/compile:doc sbtPlugin/compile:doc
   ]]></task>
 
   <task id="partestc"><![CDATA[
     setJavaVersion $java
     sbt ++$scala partest/compile
-  ]]></task>
-
-  <task id="doc-generation"><![CDATA[
-    setJavaVersion $java
-    sbt ++$scala compiler/compile:doc library/compile:doc javalibEx/compile:doc \
-                 testInterface/compile:doc jasmineTestFramework/compile:doc stubs/compile:doc
-  ]]></task>
-
-  <task id="sbtplugin-doc-generation"><![CDATA[
-    setJavaVersion $java
-    sbt ++2.10.5 ir/compile:doc tools/compile:doc jsEnvs/compile:doc \
-                 testAdapter/compile:doc sbtPlugin/compile:doc
   ]]></task>
 
   <task id="sbtplugin-test"><![CDATA[
@@ -331,14 +324,6 @@
       <v n="scala">2.12.0-M2</v>
       <v n="java">1.8</v>
     </run>
-
-    <!-- Check scaladoc generation -->
-    <run task="doc-generation">
-      <v n="scala">2.11.7</v>
-      <v n="java">1.8</v>
-    </run>
-
-    <run task="sbtplugin-doc-generation" />
 
     <!-- Tools / CLI / Stubs / sbtPlugin test tasks -->
     <run task="tools-cli-stubs-sbtplugin">
